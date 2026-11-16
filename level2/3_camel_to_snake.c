@@ -1,10 +1,9 @@
-/* camel_to_snake */
-#include <unistd.h>
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	return (0);
-}
+/*
+** camel_to_snake
+**
+** Programme qui convertit une string camelCase en snake_case.
+** Chaque majuscule devient _minuscule.
+**
+** Usage:  ./camel_to_snake "helloWorld"
+** Output: hello_world
+*/

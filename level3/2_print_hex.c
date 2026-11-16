@@ -1,10 +1,12 @@
-/* print_hex */
-#include <unistd.h>
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	return (0);
-}
+/*
+** print_hex
+**
+** Programme qui prend un entier positif (ou zero) en base 10
+** et l affiche en hexadecimal minuscule (base 16), suivi de \n.
+**
+** Usage:  ./print_hex 255
+** Output: ff
+**
+** Usage:  ./print_hex 16
+** Output: 10
+*/

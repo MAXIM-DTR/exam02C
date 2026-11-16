@@ -1,10 +1,10 @@
-/* do_op */
-#include <unistd.h>
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	return (0);
-}
+/*
+** do_op
+**
+** Programme qui prend 3 arguments: nombre1 operateur nombre2
+** et affiche le resultat de l operation.
+** Operateurs: + - * / %
+**
+** Usage:  ./do_op 10 % 3
+** Output: 1
+*/

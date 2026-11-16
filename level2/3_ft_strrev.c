@@ -1,3 +1,9 @@
-/* ft_strrev */
-#include <unistd.h>
-#include <stdlib.h>
+/*
+** ft_strrev
+**
+** Inverse une string sur place et la retourne.
+**
+** Exemple: "Hello" -> "olleH"
+**
+** Prototype: char *ft_strrev(char *str)
+*/

@@ -1,10 +1,9 @@
-/* snake_to_camel */
-#include <unistd.h>
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	return (0);
-}
+/*
+** snake_to_camel
+**
+** Programme qui convertit une string snake_case en camelCase.
+** Chaque _ suivi d une lettre devient cette lettre en majuscule.
+**
+** Usage:  ./snake_to_camel "hello_world"
+** Output: helloWorld
+*/

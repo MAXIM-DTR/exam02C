@@ -1,10 +1,12 @@
-/* rostring */
-#include <unistd.h>
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-	return (0);
-}
+/*
+** rostring
+**
+** Programme qui prend une string et affiche les mots
+** avec le premier mot deplace a la fin.
+**
+** Usage:  ./rostring "hello world foo"
+** Output: world foo hello
+**
+** Usage:  ./rostring "   "
+** Output: (newline seul)
+*/
