@@ -1,39 +1,36 @@
-/* flood_fill - remplissage par diffusion (comme Paint bucket tool)
-** A partir d'un point, remplace tous les chars connectes (meme valeur)
-** par 'F'. Connexion = haut, bas, gauche, droite (pas diagonal).
-** Methode: recursion DFS - remplir le point, puis appeler sur les 4 voisins */
-#include <unistd.h>
-#include <stdlib.h>
+/* flood_fill - remplit une zone d'un tableau 2D avec 'F'
+** Prototype : void flood_fill(char **tab, t_point size, t_point begin);
+** - tab   : le tableau 2D de caractères
+** - size  : struct avec .x (largeur) et .y (hauteur)
+** - begin : struct avec .x/.y = point de départ du remplissage
+**
+** L'algorithme DFS (récursif) remplace toutes les cellules
+** adjacentes (haut/bas/gauche/droite) qui ont la même valeur
+** que la cellule de départ, par 'F'.
+**
+** Fichier requis : flood_fill.h avec la struct t_point
+*/
 
-typedef struct	s_point
-{
-	int	x;
-	int	y;
-}	t_point;
+#include "flood_fill.h"
 
-/* Fonction recursive qui fait le vrai travail */
-void	fill(char **tab, t_point size, t_point pos, char target)
+/* Fonction auxiliaire récursive */
+void	fill(char **area, t_point size, t_point vec, char to_fill)
 {
-	/* Verifier qu'on est dans les limites du tableau */
-	if (pos.x < 0 || pos.x >= size.x || pos.y < 0 || pos.y >= size.y)
+	/* Sortir si on est hors limites ou si la cellule n'a pas la bonne valeur */
+	if (vec.y < 0 || vec.y >= size.y || vec.x < 0 || vec.x >= size.x ||
+		area[vec.y][vec.x] != to_fill)
 		return ;
-	/* Verifier que la case a le bon char (celui du point de depart) */
-	if (tab[pos.y][pos.x] != target)
-		return ;
-	/* Remplir avec 'F' et appeler les 4 voisins */
-	tab[pos.y][pos.x] = 'F';
-	fill(tab, size, (t_point){pos.x + 1, pos.y}, target);
-	fill(tab, size, (t_point){pos.x - 1, pos.y}, target);
-	fill(tab, size, (t_point){pos.x, pos.y + 1}, target);
-	fill(tab, size, (t_point){pos.x, pos.y - 1}, target);
+	/* Remplir cette cellule */
+	area[vec.y][vec.x] = 'F';
+	/* Appels récursifs dans les 4 directions */
+	fill(area, size, (t_point){vec.x - 1, vec.y}, to_fill);
+	fill(area, size, (t_point){vec.x + 1, vec.y}, to_fill);
+	fill(area, size, (t_point){vec.x, vec.y - 1}, to_fill);
+	fill(area, size, (t_point){vec.x, vec.y + 1}, to_fill);
 }
 
 void	flood_fill(char **tab, t_point size, t_point begin)
 {
-	char	target;
-
-	target = tab[begin.y][begin.x];  /* Le char qu'on veut remplacer */
-	if (target == 'F')
-		return ;  /* Deja rempli */
-	fill(tab, size, begin, target);
+	/* Lancer le remplissage depuis le point de départ */
+	fill(tab, size, begin, tab[begin.y][begin.x]);
 }

@@ -1,25 +1,25 @@
 /* first_word - affiche le premier mot d'une string
-** On saute les espaces du debut, puis on affiche
-** jusqu'au prochain espace ou fin de string */
+** Sauter espaces/tabs, afficher jusqu'au prochain separateur */
 #include <unistd.h>
 
-int	main(int argc, char **argv)
+void	first_word(char *str)
 {
 	int	i;
 
-	if (argc == 2)
+	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
+	while (str[i] != ' ' && str[i] != '\t' && str[i] != '\0')
 	{
-		i = 0;
-		/* Sauter les espaces et tabulations au debut */
-		while (argv[1][i] == ' ' || argv[1][i] == '\t')
-			i++;
-		/* Afficher les chars jusqu'au prochain separateur */
-		while (argv[1][i] && argv[1][i] != ' ' && argv[1][i] != '\t')
-		{
-			write(1, &argv[1][i], 1);
-			i++;
-		}
+		write(1, &str[i], 1);
+		i++;
 	}
+}
+
+int	main(int argc, char **argv)
+{
+	if (argc == 2)
+		first_word(argv[1]);
 	write(1, "\n", 1);
 	return (0);
 }

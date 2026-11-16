@@ -1,28 +1,29 @@
-/* rot_13 - chiffrement ROT13
-** Chaque lettre est decalee de 13 dans l'alphabet
-** (a-m -> n-z, n-z -> a-m), majuscules pareil
-** Formule: (c - 'a' + 13) % 26 + 'a' */
+/* rot_13 - decale chaque lettre de 13
+** Formule: (c - 'a' + 13) % 26 + 'a'
+** Meme en majuscule */
 #include <unistd.h>
+
+char	*rot_13(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= 'A' && str[i] <= 'Z')
+			str[i] = ((str[i] - 'A' + 13) % 26) + 'A';
+		else if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] = ((str[i] - 'a' + 13) % 26) + 'a';
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (str);
+}
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	char	c;
-
 	if (argc == 2)
-	{
-		i = 0;
-		while (argv[1][i])
-		{
-			c = argv[1][i];
-			if (c >= 'a' && c <= 'z')
-				c = (c - 'a' + 13) % 26 + 'a';
-			else if (c >= 'A' && c <= 'Z')
-				c = (c - 'A' + 13) % 26 + 'A';
-			write(1, &c, 1);
-			i++;
-		}
-	}
+		rot_13(argv[1]);
 	write(1, "\n", 1);
 	return (0);
 }

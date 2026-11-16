@@ -1,18 +1,19 @@
 /* fizzbuzz - affiche 1 a 100
-** Si multiple de 3 ET 5 -> "FizzBuzz"
-** Si multiple de 3 seulement -> "Fizz"
-** Si multiple de 5 seulement -> "Buzz"
-** Sinon -> le nombre */
+** multiple de 15 -> fizzbuzz
+** multiple de 3  -> fizz
+** multiple de 5  -> buzz
+** sinon -> le nombre
+** ATTENTION: tout en minuscule! */
 #include <unistd.h>
 
-void	ft_putnbr(int n)
+void	put_num(int n)
 {
-	char	c;
+	char	*decimal;
 
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	c = n % 10 + '0';
-	write(1, &c, 1);
+	decimal = "0123456789";
+	if (n > 9)
+		put_num(n / 10);
+	write(1, &decimal[n % 10], 1);
 }
 
 int	main(void)
@@ -23,16 +24,14 @@ int	main(void)
 	while (i <= 100)
 	{
 		if (i % 15 == 0)
-			write(1, "FizzBuzz\n", 9);
+			write(1, "fizzbuzz", 8);
 		else if (i % 3 == 0)
-			write(1, "Fizz\n", 5);
+			write(1, "fizz", 4);
 		else if (i % 5 == 0)
-			write(1, "Buzz\n", 5);
+			write(1, "buzz", 4);
 		else
-		{
-			ft_putnbr(i);
-			write(1, "\n", 1);
-		}
+			put_num(i);
+		write(1, "\n", 1);
 		i++;
 	}
 	return (0);

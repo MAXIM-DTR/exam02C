@@ -1,32 +1,38 @@
-/* sort_int_tab - trie un tableau d'entiers (ordre croissant)
-** Algorithme bubble sort:
-** Comparer des paires adjacentes, echanger si dans le mauvais ordre
-** Repeter jusqu'a ce qu'aucun echange ne soit fait */
-#include <unistd.h>
+/* sort_int_tab - trie un tableau d'entiers par ordre croissant
+** Prototype : void sort_int_tab(int *tab, unsigned int size);
+** - tab  : le tableau à trier
+** - size : nombre d'éléments dans le tableau
+**
+** Algorithme : tri à bulles modifié
+**   - Après chaque échange, on repart depuis le début (i = 0)
+**   - Plus lent qu'un bubble sort classique mais c'est l'implémentation attendue
+**
+** Exemple :
+**   tab = [3, 1, 4, 1, 5] → [1, 1, 3, 4, 5]
+*/
+
+void	swap(int *a, int *b)
+{
+	int	temp;
+
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
 
 void	sort_int_tab(int *tab, unsigned int size)
 {
-	unsigned int	i;
-	int				temp;
-	int				swapped;
+	int	i;
 
-	swapped = 1;
-	while (swapped)
+	i = 0;
+	while (i < (int)size - 1)
 	{
-		swapped = 0;
-		i = 0;
-		while (i < size - 1)
+		if (tab[i] > tab[i + 1])
 		{
-			if (tab[i] > tab[i + 1])  /* Dans le mauvais ordre? */
-			{
-				/* Echanger les deux elements */
-				temp = tab[i];
-				tab[i] = tab[i + 1];
-				tab[i + 1] = temp;
-				swapped = 1;
-			}
-			i++;
+			swap(&tab[i], &tab[i + 1]);
+			i = 0; /* Repartir depuis le début après chaque échange */
 		}
-		size--;  /* Le dernier element est deja en place */
+		else
+			i++;
 	}
 }

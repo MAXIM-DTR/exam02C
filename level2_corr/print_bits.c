@@ -1,21 +1,17 @@
-/* print_bits - affiche la representation binaire d'un octet
-** On teste chaque bit du plus significant (bit 7) au moins (bit 0)
-** Pour tester le bit i: (octet >> i) & 1 */
+/* print_bits - affiche les 8 bits d'un octet
+** i commence a 8, decrement avant usage (i = 7 d'abord)
+** (octet >> i & 1) isole le bit i, +  '0' donne '0' ou '1' */
 #include <unistd.h>
 
 void	print_bits(unsigned char octet)
 {
-	int	i;
-	char	bit;
+	unsigned char	result;
+	int				i;
 
-	i = 7;  /* Bit 7 = le plus a gauche (most significant) */
-	while (i >= 0)
+	i = 8;
+	while ((i--) > 0)
 	{
-		if ((octet >> i) & 1)
-			bit = '1';
-		else
-			bit = '0';
-		write(1, &bit, 1);
-		i--;
+		result = (octet >> i & 1) + '0';
+		write(1, &result, 1);
 	}
 }

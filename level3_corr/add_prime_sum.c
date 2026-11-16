@@ -1,25 +1,7 @@
 /* add_prime_sum - somme des nombres premiers jusqu'a N
-** Pour chaque nombre de 2 a N, verifier s'il est premier
-** (divisible par aucun nombre entre 2 et n-1)
-** Additionner tous les premiers trouves */
+** is_prime: optimisation i * i <= n (plus rapide que i < n)
+** ft_atoi maison: retourne -1 si char non numerique */
 #include <unistd.h>
-#include <stdlib.h>
-
-int	is_prime(int n)
-{
-	int	i;
-
-	if (n < 2)
-		return (0);
-	i = 2;
-	while (i < n)
-	{
-		if (n % i == 0)
-			return (0);  /* Divisible -> pas premier */
-		i++;
-	}
-	return (1);
-}
 
 void	ft_putnbr(int n)
 {
@@ -31,25 +13,58 @@ void	ft_putnbr(int n)
 	write(1, &c, 1);
 }
 
+int	ft_atoi(char *str)
+{
+	int	i;
+	int	nbr;
+
+	i = 0;
+	nbr = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
+		nbr = nbr * 10 + (str[i] - '0');
+		i++;
+	}
+	return (nbr);
+}
+
+int	is_prime(int n)
+{
+	int	i;
+
+	if (n < 2)
+		return (0);
+	i = 2;
+	while (i * i <= n)  /* Optimisation: tester jusqu'a sqrt(n) */
+	{
+		if (n % i == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	main(int argc, char **argv)
 {
-	int	n;
-	int	i;
+	int	nbr;
 	int	sum;
+	int	i;
 
+	sum = 0;
 	if (argc == 2)
 	{
-		n = atoi(argv[1]);
-		sum = 0;
+		nbr = ft_atoi(argv[1]);
 		i = 2;
-		while (i <= n)
+		while (i <= nbr)
 		{
 			if (is_prime(i))
 				sum += i;
 			i++;
 		}
-		ft_putnbr(sum);
 	}
+	ft_putnbr(sum);
 	write(1, "\n", 1);
 	return (0);
 }

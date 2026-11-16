@@ -1,92 +1,84 @@
-/* ft_split - decoupe une string par des separateurs
-** Retourne un tableau de strings NULL-termine (alloue avec malloc)
-** Chaque char de charset est un separateur possible */
-#include <unistd.h>
+/* ft_split - découpe une chaîne en mots (séparateurs : espace, tab, newline)
+** Prototype : char **ft_split(char *str);
+** - str : la chaîne à découper
+** Retourne un tableau de chaînes (NULL-terminé), alloué avec malloc.
+**
+** Exemple :
+**   ft_split("  bonjour  monde  ") → ["bonjour", "monde", NULL]
+**
+** Séparateurs : ' ' (espace), '\t' (tabulation), '\n' (saut de ligne)
+** ATTENTION : pas de paramètre charset ! Séparateurs hardcodés.
+*/
+
 #include <stdlib.h>
 
-/* Verifie si c est un separateur */
-int	is_sep(char c, char *charset)
+/* Vérifie si un caractère est un séparateur */
+int	is_sep(char c)
 {
-	int	i;
-
-	i = 0;
-	while (charset[i])
-	{
-		if (c == charset[i])
-			return (1);
-		i++;
-	}
-	return (0);
+	return (c == ' ' || c == '\t' || c == '\n');
 }
 
-/* Compte le nombre de mots */
-int	count_words(char *str, char *charset)
+/* Compte le nombre de mots dans la chaîne */
+int	count_words(char *str)
 {
 	int	count;
-	int	in_word;
+	int	i;
 
 	count = 0;
-	in_word = 0;
-	while (*str)
+	i = 0;
+	while (str[i])
 	{
-		if (!is_sep(*str, charset) && !in_word)
+		/* Sauter les séparateurs */
+		while (str[i] && is_sep(str[i]))
+			i++;
+		/* Si on trouve un mot, incrémenter */
+		if (str[i] && !is_sep(str[i]))
 		{
 			count++;
-			in_word = 1;
+			while (str[i] && !is_sep(str[i]))
+				i++;
 		}
-		else if (is_sep(*str, charset))
-			in_word = 0;
-		str++;
 	}
 	return (count);
 }
 
-/* Copie len chars depuis start dans une nouvelle string */
-char	*copy_word(char *start, int len)
+/* Duplique un mot de str[start..end-1] */
+char	*word_dup(char *str, int start, int end)
 {
 	char	*word;
 	int		i;
 
-	word = malloc(len + 1);
-	if (!word)
-		return (NULL);
+	word = (char *)malloc(sizeof(char) * (end - start + 1));
 	i = 0;
-	while (i < len)
-	{
-		word[i] = start[i];
-		i++;
-	}
-	word[len] = '\0';
+	while (start < end)
+		word[i++] = str[start++];
+	word[i] = '\0';
 	return (word);
 }
 
-char	**ft_split(char *str, char *charset)
+char	**ft_split(char *str)
 {
-	char	**result;
-	int		nb_words;
+	char	**split;
 	int		i;
 	int		j;
-	int		wlen;
+	int		start;
 
-	nb_words = count_words(str, charset);
-	result = malloc((nb_words + 1) * sizeof(char *));
-	if (!result)
-		return (NULL);
+	split = (char **)malloc(sizeof(char *) * (count_words(str) + 1));
 	i = 0;
 	j = 0;
-	while (j < nb_words)
+	while (str[i])
 	{
-		/* Sauter les separateurs */
-		while (str[i] && is_sep(str[i], charset))
+		/* Sauter les séparateurs */
+		while (str[i] && is_sep(str[i]))
 			i++;
-		/* Calculer la longueur du mot */
-		wlen = 0;
-		while (str[i + wlen] && !is_sep(str[i + wlen], charset))
-			wlen++;
-		result[j] = copy_word(str + i, wlen);
-		i += wlen;
-		j++;
+		start = i;
+		/* Avancer jusqu'au prochain séparateur */
+		while (str[i] && !is_sep(str[i]))
+			i++;
+		/* Si on a avancé, c'est un mot */
+		if (i > start)
+			split[j++] = word_dup(str, start, i);
 	}
-	result[j] = NULL;  /* Terminer le tableau par NULL */
-	return (result);
+	split[j] = NULL; /* Terminer le tableau avec NULL */
+	return (split);
 }

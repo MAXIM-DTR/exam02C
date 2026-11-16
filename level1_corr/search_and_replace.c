@@ -1,25 +1,27 @@
-/* search_and_replace - remplace un char par un autre
-** Args: string char_a_remplacer char_de_remplacement
-** Si argc != 4, ne rien afficher */
+/* search_and_replace - remplace search par replace dans str
+** IMPORTANT: argv[2] et argv[3] doivent etre exactement 1 char
+** Verifier: argv[2][0] existe ET argv[2][1] n'existe pas */
 #include <unistd.h>
+
+void	search_and_replace(char *str, char search, char replace)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == search)
+			write(1, &replace, 1);
+		else
+			write(1, &str[i], 1);
+		i++;
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	char	c;
-
-	if (argc == 4)
-	{
-		i = 0;
-		while (argv[1][i])
-		{
-			c = argv[1][i];
-			if (c == argv[2][0])   /* Si c'est le char a remplacer */
-				c = argv[3][0];     /* Remplacer par le nouveau char */
-			write(1, &c, 1);
-			i++;
-		}
-		write(1, "\n", 1);
-	}
+	if (argc == 4 && argv[2][0] && !argv[2][1] && argv[3][0] && !argv[3][1])
+		search_and_replace(argv[1], argv[2][0], argv[3][0]);
+	write(1, "\n", 1);
 	return (0);
 }

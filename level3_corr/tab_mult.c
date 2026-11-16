@@ -1,37 +1,73 @@
 /* tab_mult - table de multiplication de N de 1 a 9
-** Format: "1 x N = N\n", "2 x N = 2N\n" ... */
+** Format: "i x N = i*N\n"
+** Helpers: put_str (affiche string) et put_nbr (affiche entier) */
 #include <unistd.h>
-#include <stdlib.h>
 
-void	ft_putnbr(int n)
+void	put_str(char *str)
 {
-	char	c;
+	int	i;
 
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	c = n % 10 + '0';
-	write(1, &c, 1);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+}
+
+int	ft_atoi(char *str)
+{
+	int	result;
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		return (0);
+	result = 0;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		i++;
+	}
+	return (result);
+}
+
+void	put_nbr(int n)
+{
+	char	*decimal;
+
+	decimal = "0123456789";
+	if (n > 9)
+	{
+		put_nbr(n / 10);
+		put_nbr(n % 10);
+	}
+	else if (n < 10)
+		write(1, &decimal[n], 1);
+}
+
+void	tab_mult(int mult)
+{
+	int	i;
+
+	i = 1;
+	while (i < 10)
+	{
+		put_nbr(i);
+		put_str(" x ");
+		put_nbr(mult);
+		put_str(" = ");
+		put_nbr(i * mult);
+		put_str("\n");
+		i++;
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	int	n;
-	int	i;
-
 	if (argc == 2)
-	{
-		n = atoi(argv[1]);
-		i = 1;
-		while (i <= 9)
-		{
-			ft_putnbr(i);
-			write(1, " x ", 3);
-			ft_putnbr(n);
-			write(1, " = ", 3);
-			ft_putnbr(i * n);
-			write(1, "\n", 1);
-			i++;
-		}
-	}
+		tab_mult(ft_atoi(argv[1]));
+	else
+		write(1, "\n", 1);
 	return (0);
 }

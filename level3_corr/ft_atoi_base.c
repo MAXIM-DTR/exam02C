@@ -1,46 +1,35 @@
-/* ft_atoi_base - convertit une string depuis une base donnee
-** Ex: ft_atoi_base("11", "01") = 3 (binaire)
-** Ex: ft_atoi_base("ff", "0123456789abcdef") = 255
-** Pour chaque char: trouver son index dans la base,
-** puis: resultat = resultat * taille_base + index */
-#include <unistd.h>
+/* ft_atoi_base - convertit string depuis base numerique int
+** ATTENTION: le 2eme arg est un INT (pas une string!)
+** Ex: ft_atoi_base("ff", 16) = 255
+** Ex: ft_atoi_base("11", 2) = 3
+** Pour hexa: A-F = 10-15 avec char - '7' (car 'A' - '7' = 10)
+**            a-f = 10-15 avec char - 'W' (car 'a' - 'W' = 10) */
 
-int	char_index(char *base, char c)
+int	ft_atoi_base(const char *str, int base)
 {
-	int	i;
+	char	*number;
+	int		result;
+	int		sign;
+	int		i;
 
 	i = 0;
-	while (base[i])
+	sign = 1;
+	number = (char *)str;
+	if (number[i] == '-')
 	{
-		if (base[i] == c)
-			return (i);
+		sign *= -1;
 		i++;
 	}
-	return (-1);
-}
-
-int	ft_atoi_base(char *str, char *base)
-{
-	int	result;
-	int	len;
-	int	idx;
-	int	i;
-
-	/* Calculer la taille de la base */
-	len = 0;
-	while (base[len])
-		len++;
-	if (len < 2)
-		return (0);
 	result = 0;
-	i = 0;
-	while (str[i])
+	while (number[i] != '\0')
 	{
-		idx = char_index(base, str[i]);
-		if (idx == -1)
-			break;  /* Char inconnu dans la base -> stop */
-		result = result * len + idx;
+		if (number[i] >= '0' && number[i] <= '9')
+			result = result * base + number[i] - '0';
+		else if (number[i] >= 'A' && number[i] <= 'F')
+			result = result * base + number[i] - '7';  /* 'A'-'7' = 10 */
+		else if (number[i] >= 'a' && number[i] <= 'f')
+			result = result * base + number[i] - 'W';  /* 'a'-'W' = 10 */
 		i++;
 	}
-	return (result);
+	return (sign * result);
 }

@@ -1,36 +1,50 @@
-/* rstr_capitalizer - capitalise la DERNIERE lettre de chaque mot
-** Toutes les autres lettres en minuscule
-** Methode: si le prochain char est un espace ou fin de string
-** -> c'est la derniere lettre -> mettre en majuscule */
+/* rstr_capitalizer - capitalise DERNIERE lettre de chaque mot
+** IMPORTANT: accepte PLUSIEURS arguments (loop sur argv)
+** Si argc == 1, afficher juste un newline
+** is_sep: '\0', ' ', ou '\t'
+** Logique: si lettre et prochain char est separateur -> majuscule */
 #include <unistd.h>
 
-int	main(int argc, char **argv)
+int	is_alpha(char c)
+{
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
+
+int	is_sep(char c)
+{
+	return (c == '\0' || c == ' ' || c == '\t');
+}
+
+void	capitalize(char *str)
 {
 	int	i;
 	char	c;
 
-	if (argc == 2)
+	i = 0;
+	while (str[i])
 	{
-		i = 0;
-		while (argv[1][i])
-		{
-			c = argv[1][i];
-			if (c >= 'a' && c <= 'z')
-			{
-				/* Derniere lettre du mot? */
-				if (argv[1][i + 1] == ' ' || argv[1][i + 1] == '\0')
-					c = c - 32;  /* En majuscule */
-			}
-			else if (c >= 'A' && c <= 'Z')
-			{
-				/* Pas la derniere lettre? -> minuscule */
-				if (argv[1][i + 1] != ' ' && argv[1][i + 1] != '\0')
-					c = c + 32;
-			}
-			write(1, &c, 1);
-			i++;
-		}
+		c = str[i];
+		if (c >= 'A' && c <= 'Z')
+			c = c + 32;  /* D'abord mettre tout en minuscule */
+		if (is_alpha(c) && is_sep(str[i + 1]))
+			c = c - 32;  /* Si derniere lettre du mot -> majuscule */
+		write(1, &c, 1);
+		i++;
 	}
-	write(1, "\n", 1);
+}
+
+int	main(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		capitalize(argv[i]);
+		write(1, "\n", 1);
+		i++;
+	}
+	if (argc == 1)
+		write(1, "\n", 1);
 	return (0);
 }

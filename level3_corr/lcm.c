@@ -1,47 +1,16 @@
-/* lcm (PPCM) - Plus Petit Commun Multiple
-** Formule: PPCM(a, b) = a / PGCD(a, b) * b
-** (division avant multiplication pour eviter l'overflow)
-** PGCD avec l'algorithme d'Euclide */
-#include <unistd.h>
-#include <stdlib.h>
+/* lcm - Plus Petit Commun Multiple
+** Methode simple: multiplier par a jusqu'a trouver un multiple de b
+** multiple = a, puis a*2, a*3... jusqu'a multiple % b == 0
+** ATTENTION: retourne unsigned int, pas de printf! */
 
-unsigned int	pgcd(unsigned int a, unsigned int b)
+unsigned int	lcm(unsigned int a, unsigned int b)
 {
-	unsigned int	temp;
+	unsigned int	multiple;
 
-	while (b)
-	{
-		temp = b;
-		b = a % b;
-		a = temp;
-	}
-	return (a);
-}
-
-void	ft_putnbr(unsigned int n)
-{
-	char	c;
-
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	c = n % 10 + '0';
-	write(1, &c, 1);
-}
-
-int	main(int argc, char **argv)
-{
-	unsigned int	a;
-	unsigned int	b;
-
-	if (argc == 3)
-	{
-		a = atoi(argv[1]);
-		b = atoi(argv[2]);
-		if (a == 0 || b == 0)
-			write(1, "0", 1);
-		else
-			ft_putnbr((a / pgcd(a, b)) * b);
-	}
-	write(1, "\n", 1);
-	return (0);
+	if (a == 0 || b == 0)
+		return (0);
+	multiple = a;
+	while (multiple % b != 0)
+		multiple += a;
+	return (multiple);
 }

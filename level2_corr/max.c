@@ -1,19 +1,21 @@
 /* max - retourne la valeur maximum d'un tableau
-** Commence avec tab[0] comme max, compare avec le reste */
-#include <unistd.h>
+** Si len == 0 retourne 0
+** Commence avec tab[0], compare le reste */
 
 int	max(int *tab, unsigned int len)
 {
+	int				result;
 	unsigned int	i;
-	int			max_val;
 
-	max_val = tab[0];
+	if (len == 0)
+		return (0);
+	result = tab[0];
 	i = 1;
 	while (i < len)
 	{
-		if (tab[i] > max_val)
-			max_val = tab[i];  /* Nouveau maximum trouve */
+		if (tab[i] > result)
+			result = tab[i];
 		i++;
 	}
-	return (max_val);
+	return (result);
 }

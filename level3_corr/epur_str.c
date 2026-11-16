@@ -1,38 +1,35 @@
-/* epur_str - nettoie les espaces superflus
-** Supprimer leading/trailing spaces, reduire espaces multiples a un seul
-** Methode: "look-ahead" - on n'imprime un espace que s'il y a du texte apres */
+/* epur_str - supprime espaces superflus
+** Methode: traiter mot par mot
+** - Sauter les separateurs
+** - Si ce n'est pas le premier mot, afficher un espace avant
+** - Afficher le mot complet
+** RESULTAT: pas d'espace en debut/fin, un seul espace entre mots */
 #include <unistd.h>
 
 int	main(int argc, char **argv)
 {
 	int	i;
-	int	last_was_space;
+	int	first;
 
 	if (argc == 2)
 	{
 		i = 0;
-		last_was_space = 1;  /* Commence a 1 pour ignorer les espaces du debut */
+		first = 1;
 		while (argv[1][i])
 		{
-			if (argv[1][i] == ' ')
-			{
-				if (!last_was_space)
-				{
-					/* Verifier s'il y a du texte apres cet espace */
-					int j = i + 1;
-					while (argv[1][j] == ' ')
-						j++;
-					if (argv[1][j])  /* Il y a du texte -> imprimer l'espace */
-						write(1, " ", 1);
-					last_was_space = 1;
-				}
-			}
-			else
+			/* Sauter les espaces et tabs */
+			while (argv[1][i] == ' ' || argv[1][i] == '\t')
+				i++;
+			/* Si il y a un mot ET ce n'est pas le premier -> espace avant */
+			if (argv[1][i] && !first)
+				write(1, " ", 1);
+			/* Afficher le mot */
+			while (argv[1][i] && argv[1][i] != ' ' && argv[1][i] != '\t')
 			{
 				write(1, &argv[1][i], 1);
-				last_was_space = 0;
+				first = 0;
+				i++;
 			}
-			i++;
 		}
 	}
 	write(1, "\n", 1);

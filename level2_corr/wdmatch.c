@@ -1,7 +1,6 @@
 /* wdmatch - verifie si s1 est cache dans s2
-** Chaque char de s1 doit apparaitre dans s2 dans le meme ordre
-** (pas forcement consecutifs)
-** Si oui -> afficher s1, sinon -> rien. Toujours afficher newline */
+** Avancer i dans s1 seulement quand on trouve s1[i] dans s2
+** A la fin, si s1[i] == '\0' -> tous les chars trouves -> afficher s1 */
 #include <unistd.h>
 
 int	main(int argc, char **argv)
@@ -13,22 +12,17 @@ int	main(int argc, char **argv)
 	{
 		i = 0;
 		j = 0;
-		/* Avancer dans les deux strings en meme temps */
 		while (argv[1][i] && argv[2][j])
 		{
 			if (argv[1][i] == argv[2][j])
-				i++;  /* Char de s1 trouve dans s2 -> passer au suivant */
-			j++;      /* Toujours avancer dans s2 */
+				i++;
+			j++;
 		}
-		/* Si on a trouve tous les chars de s1 (i a atteint la fin) */
-		if (!argv[1][i])
+		if (argv[1][i] == '\0')
 		{
 			i = 0;
 			while (argv[1][i])
-			{
-				write(1, &argv[1][i], 1);
-				i++;
-			}
+				write(1, &argv[1][i++], 1);
 		}
 	}
 	write(1, "\n", 1);

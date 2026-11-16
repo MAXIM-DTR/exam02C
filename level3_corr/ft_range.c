@@ -1,24 +1,31 @@
-/* ft_range - tableau d'entiers de min a max (exclus)
-** Alloue (max - min) entiers, remplit avec min, min+1, ..., max-1
-** Si min >= max, retourne NULL */
-#include <unistd.h>
+/* ft_range - tableau de start a end (INCLUS des deux cotes)
+** IMPORTANT: fonctionne dans les DEUX sens (start peut > end)
+** Si start < end: croissant [start, start+1, ..., end]
+** Si start > end: decroissant [start, start-1, ..., end]
+** Taille = abs(end - start) + 1 */
 #include <stdlib.h>
 
-int	*ft_range(int min, int max)
+int	*ft_range(int start, int end)
 {
-	int	*tab;
+	int	*result;
 	int	i;
+	int	len;
 
-	if (min >= max)
-		return (NULL);
-	tab = malloc((max - min) * sizeof(int));
-	if (!tab)
+	if (start <= end)
+		len = end - start + 1;
+	else
+		len = start - end + 1;
+	result = (int *)malloc(sizeof(int) * len);
+	if (result == NULL)
 		return (NULL);
 	i = 0;
-	while (min + i < max)
+	while (i < len)
 	{
-		tab[i] = min + i;
+		if (start <= end)
+			result[i] = start + i;   /* Croissant */
+		else
+			result[i] = start - i;   /* Decroissant */
 		i++;
 	}
-	return (tab);
+	return (result);
 }

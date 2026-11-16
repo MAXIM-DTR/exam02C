@@ -1,27 +1,31 @@
-/* alpha_mirror - miroir de l'alphabet
-** a<->z, b<->y, c<->x ...
-** Formule: 'a' + 'z' - c  (meme pour majuscules) */
+/* alpha_mirror - miroir alphabet (a<->z, b<->y...)
+** Formule: 'z' - (c - 'a') pour lowercase
+**          'Z' - (c - 'A') pour uppercase */
 #include <unistd.h>
+
+void	alpha_mirror(char *str)
+{
+	char	mirror;
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= 'a' && str[i] <= 'z')
+			mirror = 'z' - (str[i] - 'a');
+		else if (str[i] >= 'A' && str[i] <= 'Z')
+			mirror = 'Z' - (str[i] - 'A');
+		else
+			mirror = str[i];
+		write(1, &mirror, 1);
+		i++;
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	char	c;
-
 	if (argc == 2)
-	{
-		i = 0;
-		while (argv[1][i])
-		{
-			c = argv[1][i];
-			if (c >= 'a' && c <= 'z')
-				c = 'a' + 'z' - c;  /* ex: a->z, b->y */
-			else if (c >= 'A' && c <= 'Z')
-				c = 'A' + 'Z' - c;
-			write(1, &c, 1);
-			i++;
-		}
-	}
+		alpha_mirror(argv[1]);
 	write(1, "\n", 1);
 	return (0);
 }

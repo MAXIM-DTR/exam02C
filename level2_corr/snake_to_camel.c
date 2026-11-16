@@ -1,29 +1,34 @@
 /* snake_to_camel - snake_case -> camelCase
-** Pour chaque '_': sauter le _ et mettre la lettre suivante en majuscule
-** Ex: hello_world -> helloWorld */
+** Quand on rencontre '_': sauter le _ et mettre
+** la lettre suivante en majuscule (-32 en ASCII) */
 #include <unistd.h>
 
-int	main(int argc, char **argv)
+void	snake_to_camel(char *str)
 {
-	int	i;
 	char	c;
+	int		i;
 
-	if (argc == 2)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		i = 0;
-		while (argv[1][i])
+		if (str[i] == '_' && str[i + 1] != '\0')
 		{
-			if (argv[1][i] == '_' && argv[1][i + 1])
-			{
-				i++;
-				c = argv[1][i] - 32;  /* Mettre en majuscule (-32 en ASCII) */
-				write(1, &c, 1);
-			}
-			else
-				write(1, &argv[1][i], 1);
+			c = str[i + 1] - 32;  /* Lettre apres _ en majuscule */
+			write(1, &c, 1);
+			i += 2;               /* Sauter le _ ET la lettre */
+		}
+		else
+		{
+			write(1, &str[i], 1);
 			i++;
 		}
 	}
+}
+
+int	main(int ac, char **av)
+{
+	if (ac == 2)
+		snake_to_camel(av[1]);
 	write(1, "\n", 1);
 	return (0);
 }

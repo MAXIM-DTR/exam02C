@@ -1,7 +1,6 @@
-/* ft_strpbrk - 1ere occurrence dans s1 d'un char de s2
-** Pour chaque char de s1, verifie s'il est dans s2
-** Retourne le pointeur vers ce char, ou NULL */
-#include <unistd.h>
+/* ft_strpbrk - cherche 1er char de s2 dans s1
+** Pour chaque char de s1, parcourir s2
+** Retourner pointeur vers le char trouve, 0 si rien */
 
 char	*ft_strpbrk(const char *s1, const char *s2)
 {
@@ -15,10 +14,10 @@ char	*ft_strpbrk(const char *s1, const char *s2)
 		while (s2[j])
 		{
 			if (s1[i] == s2[j])
-				return ((char *)&s1[i]);  /* Trouve! */
+				return ((char *)&s1[i]);
 			j++;
 		}
 		i++;
 	}
-	return (NULL);
+	return (0);
 }

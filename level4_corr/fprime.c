@@ -1,51 +1,52 @@
-/* fprime - affiche les facteurs premiers
-** Ex: 225 -> 3*3*5*5, 12 -> 2*2*3
-** Methode: essayer de diviser par i depuis 2
-** Si n % i == 0 -> i est un facteur, diviser n par i
-** Sinon incrementer i */
-#include <unistd.h>
+/* fprime - affiche la décomposition en facteurs premiers
+** Prototype : int main(int argc, char **argv)
+** Usage : ./fprime <nombre>
+**
+** Exemples :
+**   ./fprime 1    → 1
+**   ./fprime 12   → 2*2*3
+**   ./fprime 360  → 2*2*2*3*3*5
+**   ./fprime      → (rien, juste une newline)
+**
+** Algorithme :
+**   - On essaie tous les diviseurs à partir de 2
+**   - Quand on trouve un diviseur, on divise et on remet div à 1
+**   - On répète jusqu'à ce que nbr == div (dernier facteur trouvé)
+*/
+
 #include <stdlib.h>
+#include <stdio.h>
 
-void	ft_putnbr(int n)
+void	fprime(int nbr)
 {
-	char	c;
+	int	div;
 
-	if (n >= 10)
-		ft_putnbr(n / 10);
-	c = n % 10 + '0';
-	write(1, &c, 1);
+	div = 1;
+	if (nbr < 0)
+		return ;
+	if (nbr == 1)
+		printf("1");
+	/* On teste tous les entiers à partir de 2 */
+	while (nbr > div++)
+	{
+		if (nbr % div == 0)
+		{
+			printf("%d", div);
+			/* Si c'est le dernier facteur, on arrête */
+			if (nbr == div)
+				break ;
+			printf("*");
+			nbr /= div;
+			/* On repart de 1 (div++ le mettra à 2) */
+			div = 1;
+		}
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	int	n;
-	int	i;
-	int	first;
-
 	if (argc == 2)
-	{
-		n = atoi(argv[1]);
-		i = 2;
-		first = 1;
-		if (n == 1)
-			write(1, "1", 1);
-		else
-		{
-			while (n > 1)
-			{
-				if (n % i == 0)  /* i est un facteur */
-				{
-					if (!first)
-						write(1, "*", 1);
-					ft_putnbr(i);
-					n /= i;      /* Diviser pour trouver les suivants */
-					first = 0;
-				}
-				else
-					i++;  /* i n'est pas un facteur, essayer le suivant */
-			}
-		}
-	}
-	write(1, "\n", 1);
+		fprime(atoi(argv[1]));
+	printf("\n");
 	return (0);
 }

@@ -1,21 +1,19 @@
 /* reverse_bits - inverse les bits d'un octet
-** Le bit 0 devient bit 7, bit 1 devient bit 6, etc.
-** Methode: construire le resultat en prenant les bits de droite a gauche */
-#include <unistd.h>
+** result * 2 = decaler a gauche d'un bit
+** octet % 2 = prendre le bit de droite de octet
+** octet / 2 = passer au bit suivant */
 
 unsigned char	reverse_bits(unsigned char octet)
 {
 	unsigned char	result;
-	int			i;
+	int				i;
 
+	i = 8;
 	result = 0;
-	i = 0;
-	while (i < 8)
+	while (i-- > 0)
 	{
-		result = result << 1;         /* Faire de la place a droite */
-		result = result | (octet & 1); /* Mettre le bit 0 de octet dans result */
-		octet = octet >> 1;           /* Passer au bit suivant de octet */
-		i++;
+		result = result * 2 + (octet % 2);
+		octet = octet / 2;
 	}
 	return (result);
 }

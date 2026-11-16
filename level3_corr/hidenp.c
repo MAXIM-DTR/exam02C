@@ -1,13 +1,12 @@
 /* hidenp - verifie si s1 est cache dans s2
-** Chaque char de s1 doit apparaitre dans s2 dans le meme ordre
-** Affiche 1 si oui, 0 sinon */
+** Meme logique que wdmatch
+** Affiche directement "1\n" ou "0\n" */
 #include <unistd.h>
 
 int	main(int argc, char **argv)
 {
 	int	i;
 	int	j;
-	char	result;
 
 	if (argc == 3)
 	{
@@ -16,15 +15,15 @@ int	main(int argc, char **argv)
 		while (argv[1][i] && argv[2][j])
 		{
 			if (argv[1][i] == argv[2][j])
-				i++;  /* Char trouve -> avancer dans s1 */
-			j++;      /* Toujours avancer dans s2 */
+				i++;
+			j++;
 		}
-		if (!argv[1][i])  /* Tous les chars de s1 trouves */
-			result = '1';
+		if (argv[1][i] == '\0')
+			write(1, "1\n", 2);
 		else
-			result = '0';
-		write(1, &result, 1);
+			write(1, "0\n", 2);
 	}
-	write(1, "\n", 1);
+	else
+		write(1, "\n", 1);
 	return (0);
 }

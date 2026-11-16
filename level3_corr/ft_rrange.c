@@ -1,27 +1,30 @@
-/* ft_rrange - comme ft_range mais en ordre decroissant
-** Retourne: [max-1, max-2, ..., min]
-** Si min >= max, retourne NULL */
-#include <unistd.h>
+/* ft_rrange - comme ft_range mais en ordre inverse
+** Si start < end: [end, end-1, ..., start]
+** Si start > end: [end, end+1, ..., start]
+** Meme taille que ft_range, ordre inverse */
 #include <stdlib.h>
 
-int	*ft_rrange(int min, int max)
+int	*ft_rrange(int start, int end)
 {
-	int	*tab;
+	int	*result;
 	int	i;
-	int	val;
+	int	len;
 
-	if (min >= max)
-		return (NULL);
-	tab = malloc((max - min) * sizeof(int));
-	if (!tab)
+	if (start <= end)
+		len = end - start + 1;
+	else
+		len = start - end + 1;
+	result = (int *)malloc(sizeof(int) * len);
+	if (result == NULL)
 		return (NULL);
 	i = 0;
-	val = max - 1;  /* Commencer par la valeur la plus grande */
-	while (val >= min)
+	while (i < len)
 	{
-		tab[i] = val;
+		if (start <= end)
+			result[i] = end - i;   /* Commence par end, va vers start */
+		else
+			result[i] = end + i;   /* Commence par end, va vers start */
 		i++;
-		val--;
 	}
-	return (tab);
+	return (result);
 }

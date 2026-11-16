@@ -1,22 +1,21 @@
-/* ft_strcspn - longueur avant le premier char de reject
-** Parcourt s, pour chaque char verifie s'il est dans reject
-** Retourne la position du premier char trouve dans reject
-** Ex: strcspn("hello world", " ") -> 5 */
-#include <unistd.h>
+/* ft_strcspn - longueur avant premier char de reject
+** Pour chaque char de s, verifier s'il est dans reject
+** Retourner la position quand on trouve un match */
+#include <stddef.h>
 
 size_t	ft_strcspn(const char *s, const char *reject)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (s[i])
+	while (s[i] != '\0')
 	{
 		j = 0;
-		while (reject[j])
+		while (reject[j] != '\0')
 		{
 			if (s[i] == reject[j])
-				return (i);  /* Trouve un char rejecte -> stop */
+				return (i);
 			j++;
 		}
 		i++;

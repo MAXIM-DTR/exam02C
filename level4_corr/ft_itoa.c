@@ -1,52 +1,64 @@
-/* ft_itoa - convertit un int en string
-** Gere les negatifs et INT_MIN (-2147483648)
-** On utilise long pour ne pas avoir de probleme avec -INT_MIN */
-#include <unistd.h>
+/* ft_itoa - convertit un int en chaîne de caractères
+** Prototype : char *ft_itoa(int nbr);
+** - nbr : le nombre à convertir
+** Retourne une chaîne allouée avec malloc (à libérer avec free)
+**
+** Exemples :
+**   ft_itoa(0)           → "0"
+**   ft_itoa(42)          → "42"
+**   ft_itoa(-98765)      → "-98765"
+**   ft_itoa(-2147483648) → "-2147483648"
+**
+** Astuce : on utilise un long pour éviter le dépassement avec INT_MIN
+*/
+
 #include <stdlib.h>
 
-/* Compter le nombre de chiffres (+1 pour le signe si negatif) */
-int	count_digits(long n)
+/* Calcule le nombre de caractères nécessaires (signe inclus) */
+int	len_int(long nbr)
 {
-	int	count;
+	int	len;
 
-	if (n <= 0)
-		count = 1;  /* '0' ou le signe '-' */
-	else
-		count = 0;
-	while (n != 0)
+	len = 0;
+	/* Pour 0 ou les négatifs, on a au moins 1 chiffre */
+	if (nbr <= 0)
+		len++;
+	while (nbr)
 	{
-		n /= 10;
-		count++;
+		nbr /= 10;
+		len++;
 	}
-	return (count);
+	return (len);
 }
 
 char	*ft_itoa(int nbr)
 {
-	int		len;
-	char	*str;
-	int		is_neg;
 	long	n;
+	int		len;
+	int		neg;
+	char	*result;
 
-	n = nbr;           /* Utiliser long pour gerer INT_MIN */
-	is_neg = (n < 0);
-	if (is_neg)
-		n = -n;
-	len = count_digits((long)nbr);
-	str = malloc(len + 1);
-	if (!str)
+	n = nbr; /* Convertir en long pour gérer INT_MIN */
+	len = len_int(n);
+	result = malloc((len + 1) * sizeof(char));
+	if (result == NULL)
 		return (NULL);
-	str[len] = '\0';
-	/* Remplir la string de droite a gauche */
-	while (len > 0 && n > 0)
+	result[len] = '\0';
+	neg = 0;
+	if (n < 0)
 	{
-		len--;
-		str[len] = n % 10 + '0';
+		neg = 1;
+		n = -n; /* Rendre positif */
+	}
+	if (n == 0)
+		result[0] = '0';
+	/* Remplir de droite à gauche */
+	while (n)
+	{
+		result[--len] = n % 10 + '0';
 		n /= 10;
 	}
-	if (is_neg)
-		str[0] = '-';
-	if (nbr == 0)
-		str[0] = '0';
-	return (str);
+	if (neg)
+		result[0] = '-';
+	return (result);
 }

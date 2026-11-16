@@ -1,23 +1,22 @@
 /* ft_list_size - compte les elements d'une liste chainee
-** Parcourt la liste en suivant les pointeurs 'next' jusqu'a NULL */
-#include <unistd.h>
+** Parcourir jusqu'a NULL en incrementant un compteur */
 #include <stdlib.h>
 
 typedef struct	s_list
 {
 	struct s_list	*next;
-	void		*data;
+	void			*data;
 }	t_list;
 
 int	ft_list_size(t_list *begin_list)
 {
-	int	count;
+	int		len;
 
-	count = 0;
-	while (begin_list)  /* Tant qu'on n'est pas a la fin */
+	len = 0;
+	while (begin_list != NULL)
 	{
-		count++;
+		len++;
 		begin_list = begin_list->next;
 	}
-	return (count);
+	return (len);
 }

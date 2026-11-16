@@ -1,25 +1,23 @@
 /* ft_strrev - inverse une string sur place
-** Echanger le 1er avec le dernier, le 2eme avec l'avant-dernier...
-** On utilise deux indices: i depuis le debut, j depuis la fin */
-#include <unistd.h>
+** i part du debut, j part de la fin
+** Echanger jusqu'au milieu */
 
 char	*ft_strrev(char *str)
 {
-	int	i;
-	int	j;
-	char	temp;
+	int		i;
+	int		j;
+	char	tmp;
 
 	i = 0;
-	while (str[i])
-		i++;
-	j = i - 1;
-	i = 0;
+	j = 0;
+	while (str[j])
+		j++;
+	j--;
 	while (i < j)
 	{
-		/* Echanger str[i] et str[j] */
-		temp = str[i];
+		tmp = str[i];
 		str[i] = str[j];
-		str[j] = temp;
+		str[j] = tmp;
 		i++;
 		j--;
 	}

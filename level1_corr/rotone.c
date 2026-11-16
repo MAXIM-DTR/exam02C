@@ -1,28 +1,31 @@
-/* rotone - decale chaque lettre d'un cran
-** z -> a, Z -> A, les autres lettres +1 */
+/* rotone - decale chaque lettre de 1
+** Formule: (c - 'a' + 1) % 26 + 'a'
+** z -> a, Z -> A automatiquement avec le % 26 */
 #include <unistd.h>
+
+void	rotone(char *str)
+{
+	char	c;
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= 'a' && str[i] <= 'z')
+			c = (str[i] - 'a' + 1) % 26 + 'a';
+		else if (str[i] >= 'A' && str[i] <= 'Z')
+			c = (str[i] - 'A' + 1) % 26 + 'A';
+		else
+			c = str[i];
+		write(1, &c, 1);
+		i++;
+	}
+}
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	char	c;
-
 	if (argc == 2)
-	{
-		i = 0;
-		while (argv[1][i])
-		{
-			c = argv[1][i];
-			if (c == 'z')
-				c = 'a';        /* z tourne vers a */
-			else if (c == 'Z')
-				c = 'A';        /* Z tourne vers A */
-			else if ((c >= 'a' && c <= 'y') || (c >= 'A' && c <= 'Y'))
-				c = c + 1;      /* Toutes les autres lettres +1 */
-			write(1, &c, 1);
-			i++;
-		}
-	}
+		rotone(argv[1]);
 	write(1, "\n", 1);
 	return (0);
 }

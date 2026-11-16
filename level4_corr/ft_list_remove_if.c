@@ -1,44 +1,44 @@
-/* ft_list_remove_if - supprime les noeuds ou cmp(data, ref) == 0
-** Le premier parametre est un double pointeur pour pouvoir
-** modifier le debut de la liste
-** Libere les noeuds supprimes avec free_fct puis free */
-#include <unistd.h>
+/* ft_list_remove_if - supprime les noeuds dont le data correspond à data_ref
+** Prototype : void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)());
+** - begin_list : adresse du pointeur vers la liste (double pointeur)
+** - data_ref   : valeur de référence à comparer
+** - cmp        : fonction de comparaison (retourne 0 si égaux)
+**
+** Supprime et libère (free) tous les noeuds où cmp(data, data_ref) == 0.
+** ATTENTION : pas de free_fct ici ! On libère seulement le noeud.
+**
+** Fichier requis : ft_list.h avec la struct t_list
+*/
+
+#include "ft_list.h"
 #include <stdlib.h>
 
-typedef struct	s_list
-{
-	struct s_list	*next;
-	void		*data;
-}	t_list;
-
-void	ft_list_remove_if(t_list **begin_list, void *data_ref,
-						int (*cmp)(), void (*free_fct)(void *))
+void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
 {
 	t_list	*current;
-	t_list	*to_free;
+	t_list	*prev;
+	t_list	*tmp;
 
-	/* Supprimer les noeuds du debut qui matchent */
-	while (*begin_list && cmp((*begin_list)->data, data_ref) == 0)
-	{
-		to_free = *begin_list;
-		*begin_list = (*begin_list)->next;
-		free_fct(to_free->data);
-		free(to_free);
-	}
-	if (!*begin_list)
-		return ;
-	/* Supprimer les noeuds du milieu/fin */
+	prev = 0;
 	current = *begin_list;
-	while (current->next)
+	while (current)
 	{
-		if (cmp(current->next->data, data_ref) == 0)
+		if (cmp(current->data, data_ref) == 0)
 		{
-			to_free = current->next;
-			current->next = to_free->next;
-			free_fct(to_free->data);
-			free(to_free);
+			/* Ce noeud doit être supprimé */
+			tmp = current->next;
+			if (prev)
+				prev->next = tmp; /* Relier le précédent au suivant */
+			else
+				*begin_list = tmp; /* Mettre à jour la tête de liste */
+			free(current);
+			current = tmp;
 		}
 		else
+		{
+			/* Pas de suppression, avancer */
+			prev = current;
 			current = current->next;
+		}
 	}
 }

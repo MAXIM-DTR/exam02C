@@ -1,41 +1,42 @@
-/* sort_list - trie une liste chainee
-** Utilise cmp pour comparer: si cmp(a, b) > 0, a doit venir apres b
-** Methode bubble sort: echanger les DATA (pas les noeuds)
-** C'est plus simple que de reorganiser les pointeurs */
-#include <unistd.h>
-#include <stdlib.h>
+/* sort_list - trie une liste chaînée selon une fonction de comparaison
+** Prototype : t_list *sort_list(t_list *lst, int (*cmp)(int, int));
+** - lst : pointeur vers le premier noeud de la liste
+** - cmp : fonction de comparaison (retourne 0 si ordre incorrect)
+**
+** ATTENTION : data est un int (pas void *) dans cette version.
+**
+** Algorithme : tri à bulles sur la liste
+**   - Si !cmp(a, b) == 1 (cmp retourne 0), on échange les data
+**   - On répète jusqu'à ce qu'il n'y ait plus d'échanges
+**
+** Fichier requis : list.h avec la struct t_list (data = int)
+*/
 
-typedef struct	s_list
-{
-	struct s_list	*next;
-	void		*data;
-}	t_list;
+#include "list.h"
 
-t_list	*sort_list(t_list *begin_list, int (*cmp)(int, int))
+t_list	*sort_list(t_list *lst, int (*cmp)(int, int))
 {
-	t_list	*current;
-	void	*temp;
+	t_list	*node;
+	int		tmp;
 	int		swapped;
 
 	swapped = 1;
-	while (swapped)
+	while (swapped) /* Continuer tant qu'il y a eu des échanges */
 	{
 		swapped = 0;
-		current = begin_list;
-		while (current && current->next)
+		node = lst;
+		while (node && node->next)
 		{
-			/* Si cmp dit que current->data doit venir apres le suivant */
-			if (cmp((int)(long)current->data,
-				(int)(long)current->next->data) > 0)
+			/* Si cmp retourne 0, l'ordre est mauvais → échanger */
+			if (!cmp(node->data, node->next->data))
 			{
-				/* Echanger les donnees */
-				temp = current->data;
-				current->data = current->next->data;
-				current->next->data = temp;
+				tmp = node->data;
+				node->data = node->next->data;
+				node->next->data = tmp;
 				swapped = 1;
 			}
-			current = current->next;
+			node = node->next;
 		}
 	}
-	return (begin_list);
+	return (lst);
 }
