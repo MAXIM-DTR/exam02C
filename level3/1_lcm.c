@@ -9,3 +9,17 @@
 ** Usage:  ./lcm 4 6
 ** Output: 12
 */
+
+unsigned int    lcm(unsigned int a, unsigned int b)
+{
+    unsigned int mult;
+
+    if (a == 0 || b == 0)
+        return (0);
+    mult = a;
+    while (mult % b != 0)
+    {
+        mult = mult + a; 
+    }
+    return (mult);
+}
