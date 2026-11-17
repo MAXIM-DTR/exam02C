@@ -1,9 +1,18 @@
+/*
+** flood_fill.h - header requis pour flood_fill.c
+** Contient la definition de t_point et les prototypes des fonctions
+*/
 #ifndef FLOOD_FILL_H
 # define FLOOD_FILL_H
 
 # include <stdlib.h>
 
-/* Structure pour représenter un point (coordonnées x, y) */
+/*
+** t_point - structure pour representer un point en 2D
+** x: coordonnee horizontale (colonne)
+** y: coordonnee verticale (ligne)
+** Note: dans le tableau 2D, on accede avec area[y][x]
+*/
 typedef struct s_point
 {
 	int	x;

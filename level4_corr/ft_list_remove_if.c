@@ -1,44 +1,49 @@
-/* ft_list_remove_if - supprime les noeuds dont le data correspond à data_ref
-** Prototype : void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)());
-** - begin_list : adresse du pointeur vers la liste (double pointeur)
-** - data_ref   : valeur de référence à comparer
-** - cmp        : fonction de comparaison (retourne 0 si égaux)
+/*
+** ft_list_remove_if - supprime de la liste tous les noeuds dont le data
+** correspond a data_ref (selon la fonction cmp)
 **
-** Supprime et libère (free) tous les noeuds où cmp(data, data_ref) == 0.
-** ATTENTION : pas de free_fct ici ! On libère seulement le noeud.
+** Parametre begin_list: DOUBLE POINTEUR vers la tete de liste
+**   Pourquoi double pointeur? Car si on doit supprimer le premier noeud,
+**   il faut modifier la variable du code appelant (qui pointe vers la tete)
+**   Un simple pointeur ne permettrait pas ca (passage par valeur)
 **
-** Fichier requis : ft_list.h avec la struct t_list
+** Parametre cmp: fonction de comparaison, retourne 0 si les deux valeurs sont egales
+**
+** IMPORTANT: pas de free_fct! On ne libere que le NOEUD (la structure t_list)
+** Le data lui-meme n'est pas libere (c'est la responsabilite de l'appelant)
+**
+** Technique des 3 pointeurs:
+** - current: le noeud qu'on examine
+** - prev: le noeud precedent (pour le relier au suivant en cas de suppression)
+** - tmp: sauvegarde du noeud suivant avant de liberer current
 */
-
 #include "ft_list.h"
 #include <stdlib.h>
 
 void	ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)())
 {
-	t_list	*current;
-	t_list	*prev;
-	t_list	*tmp;
+	t_list	*current;  /* Le noeud actuellement examine */
+	t_list	*prev;     /* Le noeud precedent (NULL si on est au debut) */
+	t_list	*tmp;      /* Sauvegarde temporaire du noeud suivant */
 
-	prev = 0;
-	current = *begin_list;
+	prev = 0;             /* Au debut, pas de noeud precedent */
+	current = *begin_list; /* Commencer par la tete de liste */
 	while (current)
 	{
-		if (cmp(current->data, data_ref) == 0)
+		if (cmp(current->data, data_ref) == 0)  /* data de current == data_ref */
 		{
-			/* Ce noeud doit être supprimé */
-			tmp = current->next;
+			tmp = current->next;  /* Sauvegarder le suivant AVANT de liberer */
 			if (prev)
-				prev->next = tmp; /* Relier le précédent au suivant */
+				prev->next = tmp;    /* Relier le precedent au suivant (bypass current) */
 			else
-				*begin_list = tmp; /* Mettre à jour la tête de liste */
-			free(current);
-			current = tmp;
+				*begin_list = tmp;   /* Supprimer la tete: modifier la variable appelante */
+			free(current);           /* Liberer seulement la structure t_list (pas le data) */
+			current = tmp;           /* Passer au noeud suivant */
 		}
 		else
 		{
-			/* Pas de suppression, avancer */
-			prev = current;
-			current = current->next;
+			prev = current;           /* Ce noeud reste: il devient le nouveau precedent */
+			current = current->next;  /* Passer au suivant */
 		}
 	}
 }
