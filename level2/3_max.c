@@ -1,8 +1,11 @@
 /*
-** max
-**
-** Retourne la valeur maximale d un tableau d entiers.
-** Si len == 0, le comportement est indefini.
-**
-** Prototype: int    max(int* tab, unsigned int len)
+** max - retourne le plus grand entier du tableau
+** Retourne 0 si le tableau est vide
+** Allowed: aucune
 */
+
+
+int	max(int *tab, unsigned int len)
+{
+	/* Votre code ici */
+}

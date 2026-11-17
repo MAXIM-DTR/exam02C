@@ -1,9 +1,11 @@
 /*
-** ft_strrev
-**
-** Inverse une string sur place et la retourne.
-**
-** Exemple: "Hello" -> "olleH"
-**
-** Prototype: char *ft_strrev(char *str)
+** ft_strrev - inverse une chaîne en place
+** Modifie str directement, retourne str
+** Allowed: aucune
 */
+
+
+char	*ft_strrev(char *str)
+{
+	/* Votre code ici */
+}

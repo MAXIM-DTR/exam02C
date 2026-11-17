@@ -1,10 +1,13 @@
 /*
-** ft_rrange
-**
-** Alloue et retourne un tableau d entiers de max-1 a min (inclus).
-** Si min >= max, retourne NULL.
-**
-** Exemple: ft_rrange(1, 5) -> [4, 3, 2, 1]
-**
-** Prototype: int    *ft_rrange(int min, int max)
+** ft_rrange - comme ft_range mais retourne le tableau dans l'ordre inverse
+** ft_rrange(1,3) → [3,2,1] | ft_rrange(-1,2) → [2,1,0,-1]
+** Bidirectionnel, les deux bornes incluses
+** Allowed: malloc
 */
+
+#include <stdlib.h>
+
+int	*ft_rrange(int start, int end)
+{
+	/* Votre code ici */
+}

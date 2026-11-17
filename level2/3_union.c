@@ -1,10 +1,13 @@
 /*
-** union
-**
-** Programme qui prend deux strings et affiche leur union:
-** chaque char present dans l une ou l autre, dans l ordre
-** de premiere apparition, sans doublons. Suivi de \n.
-**
-** Usage:  ./union "zpadinton" "paqefwtdjetyiytjneytjoeyjnejdfg"
-** Output: zpadintoqefwjy
+** union - affiche les chars des deux chaînes sans doublons
+** Dans l'ordre d'apparition dans la ligne de commande + \n
+** Si argc != 3 : afficher \n
+** Allowed: write
 */
+
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

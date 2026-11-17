@@ -1,9 +1,13 @@
 /*
-** expand_str
-**
-** Programme qui prend une string et l affiche
-** en remplacant chaque espace par 10 espaces.
-**
-** Usage:  ./expand_str "1 2  3"
-** Output: "1          2          3"
+** expand_str - affiche la chaîne avec exactement 3 espaces entre les mots
+** Pas d'espaces au début/fin, suivi de \n
+** Si argc != 2 ou pas de mots : afficher \n
+** Allowed: write
 */
+
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

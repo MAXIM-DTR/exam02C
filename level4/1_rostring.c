@@ -1,12 +1,13 @@
 /*
-** rostring
-**
-** Programme qui prend une string et affiche les mots
-** avec le premier mot deplace a la fin.
-**
-** Usage:  ./rostring "hello world foo"
-** Output: world foo hello
-**
-** Usage:  ./rostring "   "
-** Output: (newline seul)
+** rostring - déplace le premier mot à la fin
+** "lorem ipsum dolor" → "ipsum dolor lorem"
+** Si argc < 2 : afficher \n
+** Allowed: write, malloc, free
 */
+
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

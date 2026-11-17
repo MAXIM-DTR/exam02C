@@ -1,11 +1,13 @@
 /*
-** wdmatch
-**
-** Programme qui prend deux strings.
-** Affiche s1 si chaque char de s1 apparait dans s2
-** dans le meme ordre (pas forcement consecutifs).
-** Sinon affiche rien. Toujours afficher \n a la fin.
-**
-** Usage:  ./wdmatch "faya" "fqhqnayacvtcba"
-** Output: faya
+** wdmatch - vérifie si s1 peut être écrit avec les chars de s2 (dans l'ordre)
+** Si oui : afficher s1 + \n, sinon : afficher \n
+** Si argc != 3 : afficher \n
+** Allowed: write
 */
+
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

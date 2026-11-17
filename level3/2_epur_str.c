@@ -1,11 +1,13 @@
 /*
-** epur_str
-**
-** Programme qui prend une string et l affiche en:
-** - reduisant les espaces multiples a un seul espace
-** - supprimant les espaces en debut et fin de string
-** Suivi d un \n.
-**
-** Usage:  ./epur_str "  hello   world  "
-** Output: "hello world"
+** epur_str - affiche la chaîne avec exactement 1 espace entre les mots
+** Pas d'espaces au début/fin, suivi de \n
+** Si argc != 2 ou pas de mots : afficher \n
+** Allowed: write
 */
+
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

@@ -1,9 +1,14 @@
 /*
-** snake_to_camel
-**
-** Programme qui convertit une string snake_case en camelCase.
-** Chaque _ suivi d une lettre devient cette lettre en majuscule.
-**
-** Usage:  ./snake_to_camel "hello_world"
-** Output: helloWorld
+** snake_to_camel - convertit snake_case en lowerCamelCase
+** here_is_a_snake_case_word → hereIsASnakeCaseWord
+** Si argc != 2 : afficher seulement \n
+** Allowed: malloc, free, realloc, write
 */
+
+#include <stdlib.h>
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

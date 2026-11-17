@@ -1,12 +1,13 @@
 /*
-** ft_atoi_base
-**
-** Convertit une string depuis une base donnee en int.
-** La base est une string contenant les chiffres valides.
-** Si base invalide (< 2 chars, doublons, contient +/-/espace), retourne 0.
-**
-** Exemple: ft_atoi_base("11", "01") == 3  (binaire)
-** Exemple: ft_atoi_base("ff", "0123456789abcdef") == 255
-**
-** Prototype: int    ft_atoi_base(char *str, char *base)
+** ft_atoi_base - convertit une chaîne en base N (<=16) vers un int base 10
+** Reconnaît 0-9 a-f A-F (majuscules comme minuscules)
+** Le '-' est interprété seulement en 1er char
+** Allowed: aucune
+** ATTENTION: le 2ème paramètre est un int (pas char *)
 */
+
+
+int	ft_atoi_base(const char *str, int str_base)
+{
+	/* Votre code ici */
+}

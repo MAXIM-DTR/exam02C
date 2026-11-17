@@ -1,10 +1,13 @@
 /*
-** paramsum
-**
-** Programme qui affiche la somme de tous les arguments
-** passes en entiers, suivi de \n.
-** Si aucun argument, affiche 0.
-**
-** Usage:  ./paramsum 1 2 3 4
-** Output: 10
+** paramsum - affiche le NOMBRE d'arguments passés au programme + \n
+** ATTENTION: pas la somme des valeurs, juste le count (argc - 1)
+** Si aucun argument : afficher 0
+** Allowed: write
 */
+
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

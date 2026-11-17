@@ -1,16 +1,15 @@
 /*
-** sort_list
-**
-** Trie une liste chainee en utilisant la fonction cmp.
-** cmp retourne un entier positif si le 1er arg doit
-** venir apres le 2nd, 0 si egal, negatif sinon.
-**
-** Struct:
-**   typedef struct s_list {
-**     struct s_list *next;
-**     void          *data;
-**   } t_list;
-**
-** Prototype:
-**   t_list *sort_list(t_list *begin_list, int (*cmp)(int, int))
+** sort_list - trie une liste chaînée selon cmp
+** ATTENTION: data est un int (pas void *) dans list.h
+** cmp retourne non-zéro si ordre correct, 0 sinon
+** Si !cmp(a, b) → échanger les data
+** Allowed: aucune
+** Fichier requis: list.h (struct t_list avec int data)
 */
+
+#include "list.h"
+
+t_list	*sort_list(t_list *lst, int (*cmp)(int, int))
+{
+	/* Votre code ici */
+}

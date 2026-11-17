@@ -1,10 +1,14 @@
 /*
-** do_op
-**
-** Programme qui prend 3 arguments: nombre1 operateur nombre2
-** et affiche le resultat de l operation.
-** Operateurs: + - * / %
-**
-** Usage:  ./do_op 10 % 3
-** Output: 1
+** do_op - effectue une opération arithmétique entre deux entiers
+** argv[1] op argv[2] : + - * / %
+** Si argc != 4 : afficher seulement \n
+** Allowed: atoi, printf, write
 */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}

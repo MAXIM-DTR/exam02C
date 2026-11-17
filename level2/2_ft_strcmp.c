@@ -1,9 +1,12 @@
 /*
-** ft_strcmp
-**
-** Reproduire le comportement de strcmp.
-** Compare s1 et s2 lexicographiquement.
-** Retourne: <0 si s1<s2, 0 si egal, >0 si s1>s2
-**
-** Prototype: int ft_strcmp(char *s1, char *s2)
+** ft_strcmp - reproduit strcmp
+** Compare s1 et s2 caractère par caractère
+** Retourne 0 si égaux, <0 si s1<s2, >0 si s1>s2
+** Allowed: aucune
 */
+
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	/* Votre code ici */
+}

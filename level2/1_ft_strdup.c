@@ -1,9 +1,12 @@
 /*
-** ft_strdup
-**
-** Reproduire strdup avec malloc.
-** Alloue et retourne une copie de la string s.
-** Retourne NULL si malloc echoue.
-**
-** Prototype: char *ft_strdup(const char *s)
+** ft_strdup - reproduit strdup
+** Alloue et retourne une copie de src
+** Allowed: malloc
 */
+
+#include <stdlib.h>
+
+char	*ft_strdup(char *src)
+{
+	/* Votre code ici */
+}

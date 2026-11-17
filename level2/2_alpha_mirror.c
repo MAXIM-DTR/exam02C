@@ -1,10 +1,13 @@
 /*
-** alpha_mirror
-**
-** Programme qui prend une string et affiche chaque lettre
-** remplacee par son miroir dans l alphabet (a<->z, b<->y).
-** Les non-lettres restent inchangees. Affiche \n a la fin.
-**
-** Usage:  ./alpha_mirror "Hello World"
-** Output: Svool Dliow
+** alpha_mirror - remplace chaque lettre par son opposé alphabétique
+** 'a'→'z', 'Z'→'A', 'd'→'w', 'M'→'N' (casse inchangée)
+** Si argc != 2 : afficher seulement \n
+** Allowed: write
 */
+
+#include <unistd.h>
+
+int	main(int argc, char **argv)
+{
+	/* Votre code ici */
+}
