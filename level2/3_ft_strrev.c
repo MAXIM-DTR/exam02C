@@ -7,5 +7,22 @@
 
 char	*ft_strrev(char *str)
 {
-	/* Votre code ici */
+	int		i;
+	int		j;
+	char	tmp;
+
+	i = 0;
+	j = 0;
+	while (str[j])  // j → fin de chaîne
+		j++;
+	j--;            // j pointe sur le dernier char (avant '\0')
+	while (i < j)   // swap jusqu'au milieu
+	{
+		tmp = str[i];
+		str[i] = str[j];
+		str[j] = tmp;
+		i++;
+		j--;
+	}
+	return (str);
 }

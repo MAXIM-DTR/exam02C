@@ -10,5 +10,24 @@
 
 int	main(int argc, char **argv)
 {
-	/* Votre code ici */
+	int	i;
+
+	if (argc != 2)              // pas exactement 1 argument → \n et stop
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	i = 0;
+	while (argv[1][i])
+	{
+		if (argv[1][i] >= 'A' && argv[1][i] <= 'Z') // majuscule détectée
+		{
+			write(1, "_", 1);       // on écrit un underscore avant
+			argv[1][i] += 32;       // 'A'=65, 'a'=97, diff=32 → minuscule
+		}
+		write(1, &argv[1][i], 1);   // on écrit le char (déjà minuscule ou inchangé)
+		i++;
+	}
+	write(1, "\n", 1);
+	return (0);
 }

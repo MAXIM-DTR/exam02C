@@ -8,5 +8,19 @@
 
 int	ft_atoi(const char *str)
 {
-	/* Votre code ici */
+	int	sign;
+	int	result;
+
+	sign = 1;
+	result = 0;
+	while (*str == ' ' || *str == '\t' || *str == '\n'
+		|| *str == '\r' || *str == '\f' || *str == '\v')
+		str++;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+		result = result * 10 + *str++ - '0';
+	return (result * sign);
 }

@@ -10,5 +10,30 @@
 
 int	main(int argc, char **argv)
 {
-	/* Votre code ici */
+	int		i;
+	char	c;
+
+	if (argc != 2)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	i = 0;
+	while (argv[1][i])
+	{
+		if (argv[1][i] == '_')      // underscore trouvé
+		{
+			i++;                    // on saute l'underscore
+			if (argv[1][i])
+			{
+				c = argv[1][i] - 32; // - 32 = passe en MAJUSCULE
+				write(1, &c, 1);
+			}
+		}
+		else
+			write(1, &argv[1][i], 1); // char normal → on écrit direct
+		i++;
+	}
+	write(1, "\n", 1);
+	return (0);
 }

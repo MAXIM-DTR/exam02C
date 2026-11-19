@@ -7,5 +7,6 @@
 
 unsigned char	swap_bits(unsigned char octet)
 {
-	/* Votre code ici */
+	// << 4 : monte les 4 bits bas en haut | >> 4 : descend les 4 bits hauts en bas
+	return ((octet << 4) | (octet >> 4));
 }

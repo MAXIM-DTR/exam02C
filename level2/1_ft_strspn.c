@@ -8,5 +8,27 @@
 
 size_t	ft_strspn(const char *s, const char *accept)
 {
-	/* Votre code ici */
+	size_t	i;
+	size_t	j;
+	int		found;
+
+	i = 0;
+	while (s[i])
+	{
+		j = 0;
+		found = 0;
+		while (accept[j])
+		{
+			if (s[i] == accept[j])
+			{
+				found = 1;
+				break;
+			}
+			j++;
+		}
+		if (!found)
+			return (i);
+		i++;
+	}
+	return (i);
 }
