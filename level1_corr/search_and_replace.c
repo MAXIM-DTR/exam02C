@@ -22,7 +22,7 @@ void	search_and_replace(char *str, char search, char replace)
 		else
 			write(1, &str[i], 1);   /* Pas trouve: afficher le char original */
 		i++;
-	}
+	} 
 }
 
 int	main(int argc, char **argv)

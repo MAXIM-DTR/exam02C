@@ -25,9 +25,8 @@ int	main(int argc, char **argv)
 				argv[1][i] = argv[1][i] - 13;
 				write (1, &argv[1][i], 1);
 			}
-			// BUG: pas de else ici — les non-lettres (espaces, chiffres, ponctuation)
-			// ne sont jamais écrits et disparaissent de la sortie
-			// FIX: ajouter else { write(1, &argv[1][i], 1); }
+			else
+				write (1, &argv[1][i], 1);
 			i++;
 		}
 	}
